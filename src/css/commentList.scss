@@ -1,0 +1,15 @@
+.user {
+    font-size: 14px;
+    color: yellow;
+}
+
+p {
+    color: violet;
+}
+
+/* 被:global 包裹起来的不会被模块化 */
+:global(.test) {
+    font-style: italic;
+}
+
+/* 被:local 包裹起来的会被模块化,默认情况下，所有的类名和id都被模块化，:local很少用 */

@@ -27,7 +27,7 @@ american1.say()
 
 class Chinese extends Persion {
     constructor(name, age, id) {
-        super(name, age) // super必须最新执行，先把父类的构造器执行完，下面才能初始化当前类的属性
+        super(name, age) // super必须最先执行，先把父类的构造器执行完，下面才能初始化当前类的属性
         this.IDNum = id
     }
 }

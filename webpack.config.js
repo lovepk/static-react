@@ -26,13 +26,51 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader?modules'], // loader数组中loader处理过程，从右往左，处理完交给下一个loader处理
+                // use: ['style-loader', 'css-loader?modules'], // loader数组中loader处理过程，从右往左，处理完交给下一个loader处理
+                // 通过添加参数localIdentName，来实现自定义模块化输出的类名
+                // path是样式表相对于项目根目录的路径
+                // name是样式表的文件名
+                // local是样式表中定义的类名或id名
+                // hash 表示32位的hash值，通过冒号去前5-6位即可
+                // 约定熟成，项目中自己的样式文件用scss,而一般第三方的都是css文件，所以只要为scss,less文件开启模块化即可
+                use:[
+                    {loader: 'style-loader'},
+                    {
+                        loader: 'css-loader',
+                        // options: {
+                        //     modules: {
+                        //         localIdentName: '[path][name]-[local]-[hash:6]',
+                        //     }
+                        // }
+                    },
+                ],
+            },
+            // 处理第三方包中特殊文件
+            {
+                test: /\.ttf|woff|woff2|eot|svg$/, 
+                use: ['url-loader'],
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    {loader: 'style-loader'},
+                    {
+                        loader: 'css-loader',
+                        // 约定熟成，项目中自己的样式文件用scss,而一般第三方的都是css文件，所以只要为scss,less文件开启模块化即可
+                        options: {
+                            modules: {
+                                localIdentName: '[path][name]-[local]-[hash:6]',
+                            }
+                        }
+                    },
+                    {loader: 'sass-loader'}
+                ]
             }
         ]
     },
     resolve: {
         extensions: ['.js', '.jsx'], // 项目中import时这几种文件的后缀名可以不写
-        // 
+        // 别名
         alias: {
             '@': path.join(__dirname, './src') //项目中@代表项目根目录下src这层
         }
