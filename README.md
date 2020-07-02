@@ -1,4 +1,4 @@
-这么支持jsx语法：
+# 这么支持jsx语法：
 1. 安装babel及其相关依赖包；安装babel在webpack使用的loader
 yarn add @babel/core --dev
 yarn add @babel/preset-env --dev
